@@ -1,0 +1,8 @@
+#  This file is part of systemd.
+#
+# See systemd.special(7) for details
+
+[Unit]
+Description=Unmount All Filesystems
+DefaultDependencies=no
+RefuseManualStart=yes

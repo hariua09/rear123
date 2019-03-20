@@ -1,0 +1,12 @@
+#  This file is part of systemd.
+#
+# See systemd.special(7) for details
+
+[Unit]
+Description=Syslog
+
+# As soon as all syslog services have native unit files this explicit
+# dependency should be dropped, and replaced by alias symlinks in the
+# .wants/ directory, to either the .service or .socket unit of the
+# syslog service.
+#After=rsyslog.service

@@ -1,0 +1,7 @@
+This is the preparation part of ReaR before starting the rescue build phase.
+
+Please note that you should not put any scripts that reference
+$ROOTFS_DIR or $VAR_DIR/recovery into this section. Scripts for $ROOTFS_DIR
+go to rescue/ and for $VAR_DIR/recovery go to layout/ respectively
+
+That way we keep only the real prep stuff here in the prep section.

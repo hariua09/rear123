@@ -1,0 +1,9 @@
+#  This file is part of systemd.
+#
+# See systemd.special(7) for details
+
+[Unit]
+Description=Final Step
+DefaultDependencies=no
+RefuseManualStart=yes
+After=shutdown.target umount.target

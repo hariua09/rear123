@@ -1,0 +1,12 @@
+#  This file is part of systemd.
+#
+
+[Unit]
+Description=Reboot
+DefaultDependencies=no
+Requires=shutdown.target umount.target final.target
+After=shutdown.target umount.target final.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/systemctl --force reboot

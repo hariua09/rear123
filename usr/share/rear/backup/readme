@@ -1,0 +1,10 @@
+000-099: initialization
+100-199: mount NETFS
+200-299: create prefix dir, etc.
+300-399: specials like SELinux (stop)
+400-499: create include/exclude files for backup
+500-599: backup itself
+600-699: specials like SELinux (start)
+700-799: umount NETFS
+800-899:
+900-999:

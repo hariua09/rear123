@@ -1,0 +1,8 @@
+#  This file is part of systemd.
+#
+# See systemd.special(7) for details
+
+[Unit]
+Description=Shutdown
+DefaultDependencies=no
+RefuseManualStart=yes

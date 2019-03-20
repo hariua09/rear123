@@ -1,0 +1,61 @@
+
+# Use the original STDIN STDOUT and STDERR when rear was launched by the user
+# to get input from the user and to show output to the user (cf. _input-output-functions.sh).
+####################### BEGIN Progress Indicator
+# Call StartProgressSubsystem to get more detailed progress reports:
+if tty -s <&7 ; then
+    # There is a tty on the original STDOUT.
+    if test "plain" = "$PROGRESS_MODE" ; then
+        # The 'plain' progress mode outputs the same content
+        # as below but without ANSI escape sequences:
+        function ProgressStart () {
+            echo "${MESSAGE_PREFIX}$*" 1>&7
+        }
+        function ProgressStop () {
+            echo "${MESSAGE_PREFIX}OK" 1>&7
+        }
+        function ProgressError () {
+            echo "${MESSAGE_PREFIX}FAILED" 1>&7
+        }
+        function ProgressInfo () {
+            echo "${MESSAGE_PREFIX}$*" 1>&7
+        }
+    else
+        # If the 'plain' progress mode is not explicitly requested
+        # (default/fallback behaviour when there is a tty on stdout)
+        # do progress animated display via ANSI escape sequences,
+        # see http://ascii-table.com/ansi-escape-sequences-vt-100.php
+        # for the ANSI escape sequences as they appear below:
+        #   Esc[2K : Clear entire line
+        #   Esc7   : Save cursor position and attributes
+        #   Esc8   : Restore cursor position and attributes
+        #   Esc[K  : Clear line from cursor right
+        function ProgressStart () {
+            echo -en "\e[2K\r${MESSAGE_PREFIX}$*\e7" 1>&7
+        }
+        function ProgressStop () {
+            echo -e "\e8\e[K${MESSAGE_PREFIX}OK" 1>&7
+        }
+        function ProgressError () {
+            echo -e "\e8\e[K${MESSAGE_PREFIX}FAILED" 1>&7
+        }
+        function ProgressInfo () {
+            echo -en "\e[2K\r${MESSAGE_PREFIX}$*\e7" 1>&7
+        }
+    fi
+else
+    # No tty on the original STDOUT, disable progress animated display altogether.
+    # The main difference to the 'plain' progress mode above is that
+    # there is no ProgressInfo when there is no tty the original STDOUT:
+    function ProgressStart () {
+        echo -n "${MESSAGE_PREFIX}$*" 1>&7
+    }
+    function ProgressStop () {
+        echo -e "${MESSAGE_PREFIX}OK" 1>&7
+    }
+    function ProgressError () {
+        echo -e "${MESSAGE_PREFIX}FAILED" 1>&7
+    }
+fi
+####################### END Progress Indicator
+

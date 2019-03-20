@@ -1,0 +1,11 @@
+#  This file is part of systemd.
+#
+# See systemd.special(7) for details
+
+[Unit]
+Description=Delayed Shutdown Daemon
+DefaultDependencies=no
+
+[Service]
+ExecStart=/lib/systemd/systemd-shutdownd
+NotifyAccess=all

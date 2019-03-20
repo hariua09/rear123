@@ -1,0 +1,9 @@
+#  This file is part of systemd.
+#
+# See systemd.special(7) for details
+
+[Unit]
+Description=Basic System
+Requires=sysinit.target sockets.target
+#After=sysinit.target sockets.target
+RefuseManualStart=yes
